@@ -10,6 +10,7 @@ import atumos.br.com.comom.TableHelper;
 import atumos.br.com.models.Linha;
 import atumos.br.com.service.LinhaService;
 import atumos.br.com.validators.LinhaValidations;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +42,9 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         btnGrupoBusca = new javax.swing.ButtonGroup();
-        tabsPanels = new javax.swing.JTabbedPane();
+        jMenu1 = new javax.swing.JMenu();
+        painelPrincipal = new javax.swing.JPanel();
+        painelAtendimento = new javax.swing.JTabbedPane();
         tabLinhas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLinhas = new javax.swing.JTable();
@@ -89,15 +92,21 @@ public class Main extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        painelProdutos = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        Produtos = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        Estoque = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuAtendimento = new javax.swing.JMenuItem();
+        menuCadastros = new javax.swing.JMenu();
+        menuProdutos = new javax.swing.JMenuItem();
+        menuFuncionarios = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("MainFrame"); // NOI18N
+
+        painelPrincipal.setLayout(new java.awt.CardLayout());
 
         tblLinhas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -257,13 +266,13 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(tabLinhasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jPanel4.getAccessibleContext().setAccessibleName("");
 
-        tabsPanels.addTab("Linhas", tabLinhas);
+        painelAtendimento.addTab("Linhas", tabLinhas);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -380,7 +389,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -501,28 +510,58 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        tabsPanels.addTab("Cliente", tabCliente);
+        painelAtendimento.addTab("Cliente", tabCliente);
 
-        jMenu1.setText("Cadastros");
+        painelPrincipal.add(painelAtendimento, "painelAtendimento");
+        painelAtendimento.getAccessibleContext().setAccessibleName("Linhas");
 
-        Produtos.setText("Produtos");
-        Produtos.addActionListener(new java.awt.event.ActionListener() {
+        jLabel11.setText("jLabel11");
+
+        javax.swing.GroupLayout painelProdutosLayout = new javax.swing.GroupLayout(painelProdutos);
+        painelProdutos.setLayout(painelProdutosLayout);
+        painelProdutosLayout.setHorizontalGroup(
+            painelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProdutosLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel11)
+                .addContainerGap(1085, Short.MAX_VALUE))
+        );
+        painelProdutosLayout.setVerticalGroup(
+            painelProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelProdutosLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel11)
+                .addContainerGap(620, Short.MAX_VALUE))
+        );
+
+        painelPrincipal.add(painelProdutos, "painelProdutos");
+
+        jMenu2.setText("Principal");
+
+        menuAtendimento.setText("Atendimento");
+        menuAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProdutosActionPerformed(evt);
+                menuAtendimentoActionPerformed(evt);
             }
         });
-        jMenu1.add(Produtos);
+        jMenu2.add(menuAtendimento);
 
-        jMenuItem1.setText("Fornecedores");
-        jMenu1.add(jMenuItem1);
+        jMenuBar1.add(jMenu2);
 
-        jMenuItem2.setText("Funcionarios");
-        jMenu1.add(jMenuItem2);
+        menuCadastros.setText("Cadastros");
 
-        Estoque.setText("Estoque");
-        jMenu1.add(Estoque);
+        menuProdutos.setText("Produtos");
+        menuProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuProdutosActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(menuProdutos);
 
-        jMenuBar1.add(jMenu1);
+        menuFuncionarios.setText("Funcionarios");
+        menuCadastros.add(menuFuncionarios);
+
+        jMenuBar1.add(menuCadastros);
 
         setJMenuBar(jMenuBar1);
 
@@ -530,20 +569,12 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabsPanels)
-                .addContainerGap())
+            .addComponent(painelPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabsPanels)
-                .addContainerGap())
+            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        tabsPanels.getAccessibleContext().setAccessibleName("Linhas");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -577,9 +608,17 @@ public class Main extends javax.swing.JFrame {
         iniciaAtendimento();
     }//GEN-LAST:event_btnIniciaAtendimentoActionPerformed
 
-    private void ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdutosActionPerformed
+    private void menuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProdutosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ProdutosActionPerformed
+        CardLayout card = (CardLayout) painelPrincipal.getLayout();
+        card.show(painelPrincipal, "painelProdutos");
+    }//GEN-LAST:event_menuProdutosActionPerformed
+
+    private void menuAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAtendimentoActionPerformed
+        // TODO add your handling code here:
+         CardLayout card = (CardLayout) painelPrincipal.getLayout();
+        card.show(painelPrincipal, "painelAtendimento");
+    }//GEN-LAST:event_menuAtendimentoActionPerformed
 
     public void iniciaAtendimento() {
         TableHelper.removeTodasLinhas(tblLinhas);
@@ -647,8 +686,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Estoque;
-    private javax.swing.JMenuItem Produtos;
     private javax.swing.JButton btnCadastroLinha;
     private javax.swing.ButtonGroup btnGrupoBusca;
     private javax.swing.JButton btnIniciaAtendimento;
@@ -660,6 +697,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -669,9 +707,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -691,13 +728,19 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JMenuItem menuAtendimento;
+    private javax.swing.JMenu menuCadastros;
+    private javax.swing.JMenuItem menuFuncionarios;
+    private javax.swing.JMenuItem menuProdutos;
+    private javax.swing.JTabbedPane painelAtendimento;
+    private javax.swing.JPanel painelPrincipal;
+    private javax.swing.JPanel painelProdutos;
     private javax.swing.JRadioButton rdBuscaCEP;
     private javax.swing.JRadioButton rdBuscaNome;
     private javax.swing.JRadioButton rdBuscaRua;
     private javax.swing.JRadioButton rdBuscaTelefone;
     private javax.swing.JPanel tabCliente;
     private javax.swing.JPanel tabLinhas;
-    private javax.swing.JTabbedPane tabsPanels;
     private javax.swing.JTable tblCadastroLinhas;
     private javax.swing.JTable tblLinhas;
     private javax.swing.JTextField txtDescricaoLinha;

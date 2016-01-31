@@ -6,7 +6,7 @@
 package atumos.br.com.models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,9 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Linha.findByDescricao", query = "SELECT l FROM Linha l WHERE l.descricao = :descricao")})
 public class Linha implements Serializable {
 
-    @OneToMany(mappedBy = "linhaId")
-    private Collection<Pedido> pedidoCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +44,8 @@ public class Linha implements Serializable {
     private String numero;
     @Column(name = "descricao")
     private String descricao;
+    @OneToMany(mappedBy = "linhaId")
+    private List<Pedido> pedidoList;
 
     public Linha() {
     }
@@ -84,6 +83,15 @@ public class Linha implements Serializable {
         this.descricao = descricao;
     }
 
+    @XmlTransient
+    public List<Pedido> getPedidoList() {
+        return pedidoList;
+    }
+
+    public void setPedidoList(List<Pedido> pedidoList) {
+        this.pedidoList = pedidoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -108,27 +116,15 @@ public class Linha implements Serializable {
     public String toString() {
         return "atumos.br.com.models.Linha[ id=" + id + " ]";
     }
-    
-    
-    public boolean linhaValidations(){
-        return "".equals(this.descricao) || "".equals(this.descricao);
-    }
-    
-    
-    public String errorMensages(){
-        if ("".equals(this.numero))
-            return "Numero não pode ser nulo";
-        if ("".equals(this.descricao))
-            return "Descrição não pode ser nula";
+
+    public String errorMensages() {
+        if ("".equals(this.numero)) {
+            return "Faltando campo numero";
+        }
+        if ("".equals(this.descricao)) {
+            return "Faltando campo descrição";
+        }
         return "";
     }
 
-    @XmlTransient
-    public Collection<Pedido> getPedidoCollection() {
-        return pedidoCollection;
-    }
-
-    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
-        this.pedidoCollection = pedidoCollection;
-    }
 }

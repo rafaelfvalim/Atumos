@@ -6,7 +6,7 @@
 package atumos.br.com.models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,9 +42,9 @@ public class TipoVenda implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     @OneToMany(mappedBy = "tipoVendaId")
-    private Collection<Pedido> pedidoCollection;
+    private List<Pedido> pedidoList;
     @OneToMany(mappedBy = "tipoEntrega")
-    private Collection<Pedido> pedidoCollection1;
+    private List<Pedido> pedidoList1;
 
     public TipoVenda() {
     }
@@ -70,21 +70,21 @@ public class TipoVenda implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Pedido> getPedidoCollection() {
-        return pedidoCollection;
+    public List<Pedido> getPedidoList() {
+        return pedidoList;
     }
 
-    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
-        this.pedidoCollection = pedidoCollection;
+    public void setPedidoList(List<Pedido> pedidoList) {
+        this.pedidoList = pedidoList;
     }
 
     @XmlTransient
-    public Collection<Pedido> getPedidoCollection1() {
-        return pedidoCollection1;
+    public List<Pedido> getPedidoList1() {
+        return pedidoList1;
     }
 
-    public void setPedidoCollection1(Collection<Pedido> pedidoCollection1) {
-        this.pedidoCollection1 = pedidoCollection1;
+    public void setPedidoList1(List<Pedido> pedidoList1) {
+        this.pedidoList1 = pedidoList1;
     }
 
     @Override
