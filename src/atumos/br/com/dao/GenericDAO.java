@@ -31,9 +31,13 @@ public class GenericDAO<PK, T> {
         try {
             T t = (T) entityManager.createQuery("SELECT T FROM " + getTypeClass().getSimpleName() + " T WHERE T." + property + " = '" + value + "'").setMaxResults(1).getSingleResult();
             return t;
-        } catch (NoResultException  e) {
+        } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public List<T> findLike(String property, String value) {
+        return entityManager.createQuery("SELECT T FROM " + getTypeClass().getSimpleName() + " T WHERE T." + property + " LIKE '%" + value + "%'").getResultList();
     }
 
     public void save(T entity) {

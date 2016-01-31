@@ -8,6 +8,7 @@ package atumos.br.com.views;
 import atumos.br.com.comom.LinhaTableHelper;
 import atumos.br.com.comom.TableHelper;
 import atumos.br.com.models.Linha;
+import atumos.br.com.service.ClienteService;
 import atumos.br.com.service.LinhaService;
 import atumos.br.com.validators.LinhaValidations;
 import java.awt.CardLayout;
@@ -62,9 +63,9 @@ public class Main extends javax.swing.JFrame {
         tabCliente = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jTextField7 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        tblConsulta = new javax.swing.JTable();
+        txtConsulta = new javax.swing.JTextField();
+        btnConsulta = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -274,7 +275,7 @@ public class Main extends javax.swing.JFrame {
 
         painelAtendimento.addTab("Linhas", tabLinhas);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -290,15 +291,20 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
-            jTable2.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane4.setViewportView(tblConsulta);
+        if (tblConsulta.getColumnModel().getColumnCount() > 0) {
+            tblConsulta.getColumnModel().getColumn(0).setResizable(false);
+            tblConsulta.getColumnModel().getColumn(1).setResizable(false);
+            tblConsulta.getColumnModel().getColumn(2).setResizable(false);
+            tblConsulta.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jButton1.setText("Consultar");
+        btnConsulta.setText("Consultar");
+        btnConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Nome:");
 
@@ -424,9 +430,9 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane4))
                         .addGap(2, 2, 2))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -444,8 +450,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnConsulta)
+                    .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdBuscaNome)
@@ -616,9 +622,15 @@ public class Main extends javax.swing.JFrame {
 
     private void menuAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAtendimentoActionPerformed
         // TODO add your handling code here:
-         CardLayout card = (CardLayout) painelPrincipal.getLayout();
+        CardLayout card = (CardLayout) painelPrincipal.getLayout();
         card.show(painelPrincipal, "painelAtendimento");
     }//GEN-LAST:event_menuAtendimentoActionPerformed
+
+    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+        // TODO add your handling code here:
+          ClienteService service = new ClienteService();
+          
+    }//GEN-LAST:event_btnConsultaActionPerformed
 
     public void iniciaAtendimento() {
         TableHelper.removeTodasLinhas(tblLinhas);
@@ -687,11 +699,11 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastroLinha;
+    private javax.swing.JButton btnConsulta;
     private javax.swing.ButtonGroup btnGrupoBusca;
     private javax.swing.JButton btnIniciaAtendimento;
     private javax.swing.JButton btnInterropeAtendimento;
     private javax.swing.JButton btnRemoveLinha;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -719,7 +731,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
@@ -727,7 +738,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JMenuItem menuAtendimento;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenuItem menuFuncionarios;
@@ -742,7 +752,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel tabCliente;
     private javax.swing.JPanel tabLinhas;
     private javax.swing.JTable tblCadastroLinhas;
+    private javax.swing.JTable tblConsulta;
     private javax.swing.JTable tblLinhas;
+    private javax.swing.JTextField txtConsulta;
     private javax.swing.JTextField txtDescricaoLinha;
     private javax.swing.JTextField txtNumeroLinha;
     // End of variables declaration//GEN-END:variables

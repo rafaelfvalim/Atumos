@@ -30,8 +30,8 @@ public final class TableHelper {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setNumRows(0);
     }
-
     public static void BuscaTodasLinhas(JTable table, Class clazz , Class dao) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
     }
+    
 }

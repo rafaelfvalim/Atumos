@@ -32,6 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome = :nome")})
 public class Cliente implements Serializable {
 
+    @Column(name = "telefone")
+    private String telefone;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,6 +101,14 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return "atumos.br.com.models.Cliente[ id=" + id + " ]";
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
     
 }
