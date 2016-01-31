@@ -25,17 +25,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author root
  */
 @Entity
-@Table(name = "linha")
+@Table(name = "tipo_venda")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Linha.findAll", query = "SELECT l FROM Linha l"),
-    @NamedQuery(name = "Linha.findById", query = "SELECT l FROM Linha l WHERE l.id = :id"),
-    @NamedQuery(name = "Linha.findByNumero", query = "SELECT l FROM Linha l WHERE l.numero = :numero"),
-    @NamedQuery(name = "Linha.findByDescricao", query = "SELECT l FROM Linha l WHERE l.descricao = :descricao")})
-public class Linha implements Serializable {
-
-    @OneToMany(mappedBy = "linhaId")
-    private Collection<Pedido> pedidoCollection;
+    @NamedQuery(name = "TipoVenda.findAll", query = "SELECT t FROM TipoVenda t"),
+    @NamedQuery(name = "TipoVenda.findById", query = "SELECT t FROM TipoVenda t WHERE t.id = :id"),
+    @NamedQuery(name = "TipoVenda.findByDescricao", query = "SELECT t FROM TipoVenda t WHERE t.descricao = :descricao")})
+public class TipoVenda implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,21 +39,18 @@ public class Linha implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "numero")
-    private String numero;
     @Column(name = "descricao")
     private String descricao;
+    @OneToMany(mappedBy = "tipoVendaId")
+    private Collection<Pedido> pedidoCollection;
+    @OneToMany(mappedBy = "tipoEntrega")
+    private Collection<Pedido> pedidoCollection1;
 
-    public Linha() {
+    public TipoVenda() {
     }
 
-    public Linha(Integer id) {
+    public TipoVenda(Integer id) {
         this.id = id;
-    }
-
-    public Linha(String numero, String descricao) {
-        this.numero = numero;
-        this.descricao = descricao;
     }
 
     public Integer getId() {
@@ -68,20 +61,30 @@ public class Linha implements Serializable {
         this.id = id;
     }
 
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
     public String getDescricao() {
         return descricao;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @XmlTransient
+    public Collection<Pedido> getPedidoCollection() {
+        return pedidoCollection;
+    }
+
+    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
+        this.pedidoCollection = pedidoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Pedido> getPedidoCollection1() {
+        return pedidoCollection1;
+    }
+
+    public void setPedidoCollection1(Collection<Pedido> pedidoCollection1) {
+        this.pedidoCollection1 = pedidoCollection1;
     }
 
     @Override
@@ -94,10 +97,10 @@ public class Linha implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Linha)) {
+        if (!(object instanceof TipoVenda)) {
             return false;
         }
-        Linha other = (Linha) object;
+        TipoVenda other = (TipoVenda) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -106,29 +109,7 @@ public class Linha implements Serializable {
 
     @Override
     public String toString() {
-        return "atumos.br.com.models.Linha[ id=" + id + " ]";
+        return "atumos.br.com.models.TipoVenda[ id=" + id + " ]";
     }
     
-    
-    public boolean linhaValidations(){
-        return "".equals(this.descricao) || "".equals(this.descricao);
-    }
-    
-    
-    public String errorMensages(){
-        if ("".equals(this.numero))
-            return "Numero não pode ser nulo";
-        if ("".equals(this.descricao))
-            return "Descrição não pode ser nula";
-        return "";
-    }
-
-    @XmlTransient
-    public Collection<Pedido> getPedidoCollection() {
-        return pedidoCollection;
-    }
-
-    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
-        this.pedidoCollection = pedidoCollection;
-    }
 }

@@ -8,6 +8,7 @@ package atumos.br.com.models;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,17 +26,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author root
  */
 @Entity
-@Table(name = "linha")
+@Table(name = "cargo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Linha.findAll", query = "SELECT l FROM Linha l"),
-    @NamedQuery(name = "Linha.findById", query = "SELECT l FROM Linha l WHERE l.id = :id"),
-    @NamedQuery(name = "Linha.findByNumero", query = "SELECT l FROM Linha l WHERE l.numero = :numero"),
-    @NamedQuery(name = "Linha.findByDescricao", query = "SELECT l FROM Linha l WHERE l.descricao = :descricao")})
-public class Linha implements Serializable {
-
-    @OneToMany(mappedBy = "linhaId")
-    private Collection<Pedido> pedidoCollection;
+    @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c"),
+    @NamedQuery(name = "Cargo.findById", query = "SELECT c FROM Cargo c WHERE c.id = :id"),
+    @NamedQuery(name = "Cargo.findByDescricao", query = "SELECT c FROM Cargo c WHERE c.descricao = :descricao")})
+public class Cargo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,21 +40,16 @@ public class Linha implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "numero")
-    private String numero;
     @Column(name = "descricao")
     private String descricao;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cargoId")
+    private Collection<Funcionario> funcionarioCollection;
 
-    public Linha() {
+    public Cargo() {
     }
 
-    public Linha(Integer id) {
+    public Cargo(Integer id) {
         this.id = id;
-    }
-
-    public Linha(String numero, String descricao) {
-        this.numero = numero;
-        this.descricao = descricao;
     }
 
     public Integer getId() {
@@ -68,20 +60,21 @@ public class Linha implements Serializable {
         this.id = id;
     }
 
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
     public String getDescricao() {
         return descricao;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @XmlTransient
+    public Collection<Funcionario> getFuncionarioCollection() {
+        return funcionarioCollection;
+    }
+
+    public void setFuncionarioCollection(Collection<Funcionario> funcionarioCollection) {
+        this.funcionarioCollection = funcionarioCollection;
     }
 
     @Override
@@ -94,10 +87,10 @@ public class Linha implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Linha)) {
+        if (!(object instanceof Cargo)) {
             return false;
         }
-        Linha other = (Linha) object;
+        Cargo other = (Cargo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -106,29 +99,7 @@ public class Linha implements Serializable {
 
     @Override
     public String toString() {
-        return "atumos.br.com.models.Linha[ id=" + id + " ]";
+        return "atumos.br.com.models.Cargo[ id=" + id + " ]";
     }
     
-    
-    public boolean linhaValidations(){
-        return "".equals(this.descricao) || "".equals(this.descricao);
-    }
-    
-    
-    public String errorMensages(){
-        if ("".equals(this.numero))
-            return "Numero não pode ser nulo";
-        if ("".equals(this.descricao))
-            return "Descrição não pode ser nula";
-        return "";
-    }
-
-    @XmlTransient
-    public Collection<Pedido> getPedidoCollection() {
-        return pedidoCollection;
-    }
-
-    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
-        this.pedidoCollection = pedidoCollection;
-    }
 }
